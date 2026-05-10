@@ -1,7 +1,17 @@
+using ContosoUniversity.DatabaseFolder;
+using Microsoft.Extensions.Options;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+
+builder.Services.AddSqlServer<ContosoContext>
+    (
+    "Server=DESKTOP-EMOJLLD\\SQLEXPRESS;Database=CONTOSO;Trusted_Connection=True;TrustServerCertificate=true"
+    );
+
 
 var app = builder.Build();
 

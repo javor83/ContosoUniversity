@@ -1,13 +1,15 @@
+using ContosoUniversity.DatabaseFolder;
 using ContosoUniversity.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
 namespace ContosoUniversity.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController(ContosoContext context) : Controller
     {
         public IActionResult Index()
         {
+          
             return View();
         }
 
