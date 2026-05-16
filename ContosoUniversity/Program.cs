@@ -1,4 +1,5 @@
 using ContosoUniversity.DatabaseFolder;
+using ContosoUniversity.Models;
 using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,7 +12,7 @@ builder.Services.AddSqlServer<ContosoContext>
     (
     "Server=DESKTOP-EMOJLLD\\SQLEXPRESS;Database=CONTOSO;Trusted_Connection=True;TrustServerCertificate=true"
     );
-
+builder.Services.AddTransient<IStudentList,StudentList>();
 
 var app = builder.Build();
 

@@ -2,7 +2,29 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+
+@model IEnumerable<SItem>
+
+<h1>@captions.Stundents</h1>
+<table class="@captions.table">
+    <tr>
+        <th>@captions.StundentsID</th>
+        <th>@captions.StundentsFName</th>
+        <th>@captions.StundentsLName</th>
+        <th>@captions.StundentsEDate</th>
+    </tr>
+    @foreach (var k in Model)
+    {
+        <tr>
+            <td>@k.ID</td>
+            <td>@k.FName</td>
+            <td>@k.LName</td>
+            <td>@k.PrintDate()</td>
+        </tr>
+    }
+</table>
+<div>
+    <a asp-action="Insert" asp-controller="Home" class="@captions.button_default"></a>
 </div>
+
+

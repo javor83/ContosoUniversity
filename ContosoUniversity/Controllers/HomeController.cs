@@ -5,11 +5,17 @@ using System.Diagnostics;
 
 namespace ContosoUniversity.Controllers
 {
-    public class HomeController(ContosoContext context) : Controller
+    public class HomeController(IStudentList student) : Controller
     {
         public IActionResult Index()
         {
-          
+            IEnumerable<SItem> list = student.ReadStudents();
+            return View(list);
+        }
+
+
+        public IActionResult Insert()
+        {
             return View();
         }
 
