@@ -24,5 +24,17 @@ namespace ContosoUniversity.Models
                 
         }
 
+
+        public static SItem Empty()
+        {
+            return new SItem()
+            {
+                ID = 0,
+                FName = "",
+                LName = "",
+                EnrollmentDate = DateTime.Today
+            };
+        }
+
     }
 }

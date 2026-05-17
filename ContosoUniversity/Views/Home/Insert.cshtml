@@ -1,0 +1,19 @@
+﻿@model SItem
+ 
+<h1>@captions.new_item</h1>
+
+<form method="post" asp-antiforgery="true" asp-controller="Home" asp-action="Insert">
+    <div asp-validation-summary="All"></div>
+    <div class="form-group">
+        <label asp-for="@Model.FName" class="form-label"></label>
+        <input type="text" asp-for="@Model.FName" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.LName" class="form-label"></label>
+        <input type="text" asp-for="@Model.LName" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.EnrollmentDate" class="form-label"></label>
+        <input type="date" asp-for="@Model.EnrollmentDate" class="form-control" />
+    </div>
+</form>
