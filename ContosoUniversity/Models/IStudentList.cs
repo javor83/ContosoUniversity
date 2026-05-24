@@ -9,6 +9,12 @@ namespace ContosoUniversity.Models
 
         Task Insert(SItem item);
 
+        Task Delete(int id);
+
+        SItem Element(int id);
+
+        Task Update(SItem item);
+
     }
 
 }

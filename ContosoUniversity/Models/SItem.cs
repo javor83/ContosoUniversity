@@ -32,7 +32,8 @@ namespace ContosoUniversity.Models
         public string? PrintDate()
         {
             return
-                Convert.ToString(this.EnrollmentDate, new CultureInfo("bg-bg"));
+                
+                Convert.ToString(this.EnrollmentDate.ToString(), new CultureInfo("bg-bg"));
                 
         }
         //**********************************************************************

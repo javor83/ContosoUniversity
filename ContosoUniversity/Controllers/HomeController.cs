@@ -7,6 +7,9 @@ namespace ContosoUniversity.Controllers
 {
     public class HomeController(IStudentList student) : Controller
     {
+
+
+
         //****************************************************************************
         public IActionResult Index()
         {
@@ -31,6 +34,45 @@ namespace ContosoUniversity.Controllers
             else
                 return View(sender);
         }
+
+
+        //****************************************************************************
+        public IActionResult Edit(int id)
+        {
+            SItem q = student.Element(id);
+            if (q == null)
+            {
+                return BadRequest();
+            }
+            else
+            {
+                return View(q);
+            }
+        }
+        //****************************************************************************
+        [HttpPost,ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(SItem sender)
+        {
+            if (ModelState.IsValid)
+            {
+                await student.Update(sender);
+                return RedirectToAction(nameof(HomeController.Index), "Home");
+            }
+            else
+            {
+                return View(sender);
+            }
+        }
+
+        //****************************************************************************
+        [HttpPost,ValidateAntiForgeryToken]
+        public async Task<IActionResult> Delete(int id)
+        {
+            await student.Delete(id);
+            return RedirectToAction(nameof(HomeController.Index), "Home");
+
+        }
+
         //****************************************************************************
         public IActionResult Privacy()
         {
