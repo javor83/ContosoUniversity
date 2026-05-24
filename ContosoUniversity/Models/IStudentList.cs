@@ -7,6 +7,8 @@ namespace ContosoUniversity.Models
     {
         IEnumerable<SItem> ReadStudents();
 
+        Task Insert(SItem item);
+
     }
 
 }

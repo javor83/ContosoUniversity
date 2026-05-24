@@ -6,16 +6,28 @@ namespace ContosoUniversity.Models
     public class SItem
     {
         public int? ID { get; set; }
+        //**********************************************************************
 
-
-        [Required]
+        /*
+         *    public const string StundentsFName = "Име";
+        public const string  = "Фамилия";
+        public const string StundentsEDate = "Стартова дата";
+         */
+        [Required(AllowEmptyStrings =false,ErrorMessage =captions.ReqField)]
+        [Display(Name =captions.StundentsFName)]
         public string? FName { get; set; }
+        //**********************************************************************
 
-        [Required]
+       
+        [Required(AllowEmptyStrings = false, ErrorMessage = captions.ReqField)]
+        [Display(Name = captions.StundentsLName)]
         public string? LName { get; set; }
+        //**********************************************************************
 
-        [Required]
+        [Required(AllowEmptyStrings = false, ErrorMessage = captions.ReqField)]
+        [Display(Name = captions.StundentsEDate)]
         public DateTime? EnrollmentDate { get; set; }
+        //**********************************************************************
 
         public string? PrintDate()
         {
@@ -23,7 +35,7 @@ namespace ContosoUniversity.Models
                 Convert.ToString(this.EnrollmentDate, new CultureInfo("bg-bg"));
                 
         }
-
+        //**********************************************************************
 
         public static SItem Empty()
         {
@@ -35,6 +47,6 @@ namespace ContosoUniversity.Models
                 EnrollmentDate = DateTime.Today
             };
         }
-
+        //**********************************************************************
     }
 }

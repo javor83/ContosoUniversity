@@ -16,4 +16,8 @@
         <label asp-for="@Model.EnrollmentDate" class="form-label"></label>
         <input type="date" asp-for="@Model.EnrollmentDate" class="form-control" />
     </div>
+    <div>
+        <input type="submit" class="@captions.button_default" value="@captions.save" />
+        <a asp-action="Index" asp-controller="Home" class="@captions.button_outline">@captions.cancel</a>
+    </div>
 </form>

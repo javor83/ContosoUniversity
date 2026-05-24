@@ -21,9 +21,15 @@ namespace ContosoUniversity.Controllers
         }
         //****************************************************************************
         [HttpPost,ValidateAntiForgeryToken]
-        public IActionResult Insert(SItem sender)
+        public async Task<IActionResult> Insert(SItem sender)
         {
-            return View(SItem.Empty());
+            if (ModelState.IsValid)
+            {
+                await student.Insert(sender);
+                return RedirectToAction(nameof(HomeController.Index), "Home");
+            }
+            else
+                return View(sender);
         }
         //****************************************************************************
         public IActionResult Privacy()

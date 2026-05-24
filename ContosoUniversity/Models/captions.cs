@@ -10,9 +10,16 @@
 
         public const string table = "table table-hover table-striped";
         public const string button_default = "btn btn-primary";
+        public const string button_outline = "btn btn-outline-primary";
         public const string new_item = "Нов ученик";
         public const string save = "Съхрани";
         public const string Edit = "Редакция";
         public const string cancel = "Отказ";
+
+
+        public const string ReqField = "Полето {0} е задължително";
+
+
+      
     }
 }
