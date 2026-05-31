@@ -23,7 +23,7 @@
                 <div>@k.PrintDate()</div>
                 <form method="post" asp-action="Delete" asp-controller="Home" asp-antiforgery="true" asp-route-id="@k.ID">
                     <input type="submit" value="@captions.delete" class="@captions.button_danger" />
-                    <a asp-controller="Home" asp-action="Edit" asp-route-id="@k.ID">edit</a>
+                    <a asp-controller="Home" asp-action="Edit" asp-route-id="@k.ID">@captions.Edit</a>
                 </form>
                 
                     
