@@ -14,6 +14,7 @@
         public const string button_danger = "btn btn-danger";
         public const string new_item = "Нов ученик";
         public const string save = "Съхрани";
+        public const string details = "Детайли";
         public const string Edit = "Редакция";
         public const string cancel = "Отказ";
         public const string delete = "Изтрий";
