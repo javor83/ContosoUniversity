@@ -1,0 +1,22 @@
+﻿@model GradeDetails
+<table class="@captions.table">
+    <tr>
+        <th>@captions.StundentsFName</th>
+        <td>@Model.FName</td>
+    </tr>
+    <tr>
+        <th>@captions.StundentsLName</th>
+        <td>@Model.LName</td>
+    </tr>
+    <tr>
+        <th>@captions.StundentsEDate</th>
+        <td>@Model.EnrollmentDate.BulgarianDate()</td>
+    </tr>
+    @foreach (var row in Model.CourseTitles)
+    {
+        <tr>
+            <th>@row.CourseTitle</th>
+            <td>@row.GradeValue.ToString()</td>
+        </tr>    
+    }
+</table>

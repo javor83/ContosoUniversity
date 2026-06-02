@@ -15,6 +15,8 @@ namespace ContosoUniversity.Models
 
         Task Update(SItem item);
 
+        GradeDetails Details(int id);
+
     }
 
 }

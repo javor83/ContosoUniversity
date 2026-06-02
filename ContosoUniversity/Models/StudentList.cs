@@ -1,9 +1,46 @@
 ﻿using ContosoUniversity.DatabaseFolder;
+using Microsoft.EntityFrameworkCore;
 
 namespace ContosoUniversity.Models
 {
     public class StudentList(ContosoContext context) : IStudentList
     {
+
+        //**************************************************************************
+        GradeDetails IStudentList.Details(int id)
+        {
+            GradeDetails result = null;
+
+            var query = context.Students
+                        .Include(enrollment => enrollment.Enrollments).
+                            ThenInclude(cr => cr.Cource).Where(x => x.Id == id).First();
+            if (query != null)
+            {
+                result = new GradeDetails()
+                {
+                    FName = query.Fname,
+                    LName = query.Lastname,
+                    EnrollmentDate = query.Enrollmentdate
+                };
+                foreach (var x in query.Enrollments)
+                {
+                    result.CourseTitles.Add
+                        (
+                            new GradeDetails_CourseTitle()
+                            {
+
+                                CourseTitle = x.Cource.Title,
+                                GradeValue = (enum_Grades)x.Grade
+                            }
+                        );
+                    
+                }
+            }
+
+
+            return result;
+        }
+
         //**************************************************************************
         SItem IStudentList.Element(int id)
         {

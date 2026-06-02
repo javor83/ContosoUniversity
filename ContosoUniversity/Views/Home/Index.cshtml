@@ -20,7 +20,7 @@
             <td>@k.ID</td>
             <td>@k.FName</td>
             <td>@k.LName</td>
-            <td> @k.PrintDate()</td>
+            <td> @k.EnrollmentDate.BulgarianDate()</td>
             <td>
             <form method="post" asp-action="Delete" asp-controller="Home" asp-antiforgery="true" asp-route-id="@k.ID">
 

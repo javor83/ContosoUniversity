@@ -9,13 +9,7 @@ namespace ContosoUniversity.Controllers
     {
 
 
-
-        //****************************************************************************
-        public IActionResult Index()
-        {
-            IEnumerable<SItem> list = student.ReadStudents();
-            return View(list);
-        }
+        #region insert
         //****************************************************************************
 
         public IActionResult Insert()
@@ -23,7 +17,7 @@ namespace ContosoUniversity.Controllers
             return View(SItem.Empty());
         }
         //****************************************************************************
-        [HttpPost,ValidateAntiForgeryToken]
+        [HttpPost, ValidateAntiForgeryToken]
         public async Task<IActionResult> Insert(SItem sender)
         {
             if (ModelState.IsValid)
@@ -34,8 +28,9 @@ namespace ContosoUniversity.Controllers
             else
                 return View(sender);
         }
+        #endregion
 
-
+        #region edit
         //****************************************************************************
         public IActionResult Edit(int id)
         {
@@ -50,7 +45,7 @@ namespace ContosoUniversity.Controllers
             }
         }
         //****************************************************************************
-        [HttpPost,ValidateAntiForgeryToken]
+        [HttpPost, ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(SItem sender)
         {
             if (ModelState.IsValid)
@@ -63,15 +58,39 @@ namespace ContosoUniversity.Controllers
                 return View(sender);
             }
         }
+        #endregion
 
+        #region delete
         //****************************************************************************
-        [HttpPost,ValidateAntiForgeryToken]
+        [HttpPost, ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(int id)
         {
             await student.Delete(id);
             return RedirectToAction(nameof(HomeController.Index), "Home");
 
         }
+        #endregion
+
+
+        public IActionResult Details(int id)
+        {
+            GradeDetails details = student.Details(id);
+            if (details == null)
+            {
+                return NotFound();
+            }
+            else return View(details);
+
+
+        }
+
+        //****************************************************************************
+        public IActionResult Index()
+        {
+            IEnumerable<SItem> list = student.ReadStudents();
+            return View(list);
+        }
+
 
         //****************************************************************************
         public IActionResult Privacy()
