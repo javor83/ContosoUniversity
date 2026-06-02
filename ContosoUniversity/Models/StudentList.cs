@@ -11,9 +11,9 @@ namespace ContosoUniversity.Models
         {
             GradeDetails result = null;
 
-            var query = context.Students
+            var query = context.Students.Where(x => x.Id == id)
                         .Include(enrollment => enrollment.Enrollments).
-                            ThenInclude(cr => cr.Cource).Where(x => x.Id == id).First();
+                            ThenInclude(cr => cr.Cource).First();
             if (query != null)
             {
                 result = new GradeDetails()
