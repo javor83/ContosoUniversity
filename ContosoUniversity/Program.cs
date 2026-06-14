@@ -8,9 +8,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 
+
 builder.Services.AddSqlServer<ContosoContext>
     (
-    "Server=DESKTOP-EMOJLLD\\SQLEXPRESS;Database=CONTOSO;Trusted_Connection=True;TrustServerCertificate=true"
+        builder.Configuration["ConnectionStrings:Default"]
     );
 builder.Services.AddTransient<IStudentList,StudentList>();
 
