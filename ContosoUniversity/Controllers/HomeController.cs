@@ -85,9 +85,19 @@ namespace ContosoUniversity.Controllers
         }
 
         //****************************************************************************
-        public IActionResult Index()
+        public IActionResult Index(string sOrder="")
         {
-            IEnumerable<SItem> list = student.ReadStudents();
+            //накъде да сочи връзката за следващото сортиране по id...
+            ViewData["order_id"] = student.NextOrderType(sOrder, enum_SortStudentOrder.id_asc, enum_SortStudentOrder.id_desc);
+
+            //накъде да сочи връзката за следващото сортиране по име...
+            ViewData["order_fname"] = student.NextOrderType(sOrder,enum_SortStudentOrder.fname_asc,enum_SortStudentOrder.fname_desc);
+            //накъде да сочи връзката за следващото сортиране по фамилия...
+            ViewData["order_lname"] = student.NextOrderType(sOrder, enum_SortStudentOrder.lname_asc, enum_SortStudentOrder.lname_desc);
+            //накъде да сочи връзката за следващото сортиране по дата...
+            ViewData["order_edate"] = student.NextOrderType(sOrder, enum_SortStudentOrder.edate_asc, enum_SortStudentOrder.edate_desc);
+
+            IEnumerable<SItem> list = student.ReadStudents(sOrder);
             return View(list);
         }
 

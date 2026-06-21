@@ -107,18 +107,105 @@ namespace ContosoUniversity.Models
                  );
             await context.SaveChangesAsync();
         }
+        //**************************************************************************
+        string IStudentList.NextOrderType(string sOrder, string order_asc, string order_desc)
+        {
+            string result = string.Empty;
+
+            if (sOrder == string.Empty)
+            {
+                result = order_asc;
+            }
+            else
+
+                if (sOrder.Equals(order_asc, StringComparison.OrdinalIgnoreCase))
+                {
+                    result = order_desc;
+
+                }
+                else
+                    if (sOrder.Equals(order_desc, StringComparison.OrdinalIgnoreCase))
+                    {
+                        result = order_asc;
+
+                    }
+
+            return result;
+        }
 
         //**************************************************************************
-        IEnumerable <SItem> IStudentList.ReadStudents()
+        IEnumerable<SItem> IStudentList.ReadStudents(string sOrder)
         {
-            return context.Students.Select(x => new SItem()
+            var query = context.Students.Select(x => new SItem()
             {
                 ID = x.Id,
                 FName = x.Fname,
                 LName = x.Lastname,
                 EnrollmentDate = x.Enrollmentdate
 
-            }).OrderBy(x => x.FName).ThenBy(x => x.LName);
+            });
+
+
+            var result_fname = (this as IStudentList).NextOrderType(sOrder, enum_SortStudentOrder.fname_asc, enum_SortStudentOrder.fname_desc);
+            var result_lname = (this as IStudentList).NextOrderType(sOrder, enum_SortStudentOrder.lname_asc, enum_SortStudentOrder.lname_desc);
+            var result_edate = (this as IStudentList).NextOrderType(sOrder, enum_SortStudentOrder.edate_asc, enum_SortStudentOrder.edate_desc);
+            var result_id = (this as IStudentList).NextOrderType(sOrder, enum_SortStudentOrder.id_asc, enum_SortStudentOrder.id_desc);
+            if (result_fname!=string.Empty)
+            {
+                switch (result_fname)
+                {
+                    case enum_SortStudentOrder.fname_asc:
+                        query = query.OrderBy(x => x.FName);
+                        break;
+                    case enum_SortStudentOrder.fname_desc:
+                        query = query.OrderByDescending(x => x.FName);
+                        break;
+                }
+            }
+            else
+                if (result_lname!= string.Empty)
+                {
+                    switch (result_lname)
+                    {
+                        case enum_SortStudentOrder.lname_asc:
+                            query = query.OrderBy(x => x.LName);
+                            break;
+                        case enum_SortStudentOrder.lname_desc:
+                            query = query.OrderByDescending(x => x.LName);
+                            break;
+                    }
+
+                }
+                else
+                    if (result_edate != string.Empty)
+                    {
+                        switch (result_edate)
+                        {
+                            case enum_SortStudentOrder.edate_asc:
+                                query = query.OrderBy(x => x.EnrollmentDate);
+                                break;
+                            case enum_SortStudentOrder.edate_desc:
+                                query = query.OrderByDescending(x => x.EnrollmentDate);
+                                break;
+                        }
+                    }
+                    else
+                        if (result_id != string.Empty)
+                        {
+                            switch (result_id)
+                            {
+                                case enum_SortStudentOrder.id_asc:
+                                    query = query.OrderBy(x => x.ID);
+                                    break;
+                                case enum_SortStudentOrder.id_desc:
+                                    query = query.OrderByDescending(x => x.ID);
+                                    break;
+                            }
+                        }
+
+
+
+            return query;
         }
 
         //**************************************************************************

@@ -2,17 +2,39 @@
     ViewData["Title"] = "Home Page";
 }
 
+@*
+       //накъде да сочи връзката за следващото сортиране по id...
+            ViewBag["order_id"] = student.NextOrderType(sOrder, enum_SortStudentOrder.id_asc, enum_SortStudentOrder.id_desc);
+
+            //накъде да сочи връзката за следващото сортиране по име...
+            ViewBag[""] = student.NextOrderType(sOrder,enum_SortStudentOrder.fname_asc,enum_SortStudentOrder.fname_desc);
+            //накъде да сочи връзката за следващото сортиране по фамилия...
+            ViewBag[""] = student.NextOrderType(sOrder, enum_SortStudentOrder.lname_asc, enum_SortStudentOrder.lname_desc);
+            //накъде да сочи връзката за следващото сортиране по дата...
+            ViewBag[""] = student.NextOrderType(sOrder, enum_SortStudentOrder.edate_asc, enum_SortStudentOrder.edate_desc);
+
+*@
 
 @model IEnumerable<SItem>
 
 <h1>@captions.Stundents</h1>
 <table class="@captions.table">
     <tr>
-        <th>@captions.StundentsID</th>
-        <th>@captions.StundentsFName</th>
-        <th>@captions.StundentsLName</th>
-        <th>@captions.StundentsEDate</th>
+        <th>
+            <a asp-controller="Home" asp-action="Index" asp-route-sOrder="@ViewData["order_id"]">@captions.StundentsID</a>
+        </th>
+        <th>
+            <a asp-controller="Home" asp-action="Index" asp-route-sOrder="@ViewData["order_fname"]">@captions.StundentsFName</a>
+        </th>
+        <th>
+            <a asp-controller="Home" asp-action="Index" asp-route-sOrder="@ViewData["order_lname"]">@captions.StundentsLName</a>
+        </th>
+        <th>
+            <a asp-controller="Home" asp-action="Index" asp-route-sOrder="@ViewData["order_edate"]">@captions.StundentsEDate</a>
+        </th>
         <th></th>
+
+        
     </tr>
     @foreach (var k in Model)
     {
