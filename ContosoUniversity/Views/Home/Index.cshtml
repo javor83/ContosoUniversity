@@ -2,36 +2,138 @@
     ViewData["Title"] = "Home Page";
 }
 
-@*
-       //накъде да сочи връзката за следващото сортиране по id...
-            ViewBag["order_id"] = student.NextOrderType(sOrder, enum_SortStudentOrder.id_asc, enum_SortStudentOrder.id_desc);
 
-            //накъде да сочи връзката за следващото сортиране по име...
-            ViewBag[""] = student.NextOrderType(sOrder,enum_SortStudentOrder.fname_asc,enum_SortStudentOrder.fname_desc);
-            //накъде да сочи връзката за следващото сортиране по фамилия...
-            ViewBag[""] = student.NextOrderType(sOrder, enum_SortStudentOrder.lname_asc, enum_SortStudentOrder.lname_desc);
-            //накъде да сочи връзката за следващото сортиране по дата...
-            ViewBag[""] = student.NextOrderType(sOrder, enum_SortStudentOrder.edate_asc, enum_SortStudentOrder.edate_desc);
+@{
+    VDSort sort_type = ViewData["scolumn"] as VDSort;
+    var gl = sort_type.Glyph();
 
-*@
+}
+
 
 @model IEnumerable<SItem>
 
 <h1>@captions.Stundents</h1>
 <table class="@captions.table">
     <tr>
-        <th>
-            <a asp-controller="Home" asp-action="Index" asp-route-sOrder="@ViewData["order_id"]">@captions.StundentsID</a>
-        </th>
-        <th>
-            <a asp-controller="Home" asp-action="Index" asp-route-sOrder="@ViewData["order_fname"]">@captions.StundentsFName</a>
-        </th>
-        <th>
-            <a asp-controller="Home" asp-action="Index" asp-route-sOrder="@ViewData["order_lname"]">@captions.StundentsLName</a>
-        </th>
-        <th>
-            <a asp-controller="Home" asp-action="Index" asp-route-sOrder="@ViewData["order_edate"]">@captions.StundentsEDate</a>
-        </th>
+        @if (sort_type.CurrentSort(enum_ColumnStudent.ID))
+        {
+            <th>
+                <a asp-controller="Home" class="sorted"
+                asp-action="Index" 
+                asp-route-scolumn="@sort_type.IntegerColumnID()"
+                   asp-route-sorder="@sort_type.NextOrderType()">
+
+                    @captions.StundentsID <b>@Html.Raw(gl)</b>
+                </a>
+            </th>
+        }
+        else
+        {
+
+           
+            <th>
+                <a 
+                    asp-controller="Home"
+                    asp-action="Index"
+                    asp-route-scolumn="@sort_type.IntegerColumnID()" 
+                    asp-route-sorder="@sort_type.IntegerAsc()">
+
+                    @captions.StundentsID
+                </a>
+            </th>
+        }
+
+
+        @if (sort_type.CurrentSort(enum_ColumnStudent.FName))
+        {
+            <th>
+                <a asp-controller="Home" asp-action="Index" class="sorted"
+                   asp-route-scolumn="@sort_type.IntegerColumnFName()"
+                   asp-route-sorder="@sort_type.NextOrderType()">
+
+                    @captions.StundentsFName <b>@Html.Raw(gl)</b>
+
+               
+                </a>
+            </th>
+        }
+        else
+        {
+            <th>
+                <a
+                    asp-controller="Home"
+                asp-action="Index" 
+                asp-route-scolumn="@sort_type.IntegerColumnFName()"
+                asp-route-sorder="@sort_type.IntegerAsc()">
+                    @captions.StundentsFName
+                </a>
+            </th>
+        }
+
+
+        @if (sort_type.CurrentSort(enum_ColumnStudent.LName))
+        {
+            <th>
+                <a asp-controller="Home" asp-action="Index" class="sorted"
+                   asp-route-scolumn="@sort_type.IntegerColumnLName()"
+                   asp-route-sorder="@sort_type.NextOrderType()">
+
+
+               
+                    @captions.StundentsLName <b>@Html.Raw(gl)</b>
+
+               
+                
+            
+                </a>
+            </th>
+        }
+        else
+        {
+            <th>
+                <a
+                    asp-controller="Home"
+                    asp-action="Index" 
+                    asp-route-scolumn="@sort_type.IntegerColumnLName()" 
+                    asp-route-sorder="@sort_type.IntegerAsc()">
+                    @captions.StundentsLName
+                </a>
+            </th>
+        }
+
+
+
+        @if (sort_type.CurrentSort(enum_ColumnStudent.EDate))
+        {
+
+            <th>
+                <a asp-controller="Home" asp-action="Index" class="sorted"
+                   asp-route-scolumn="@sort_type.IntegerColumnEDate()"
+                   asp-route-sorder="@sort_type.NextOrderType()">
+
+               
+                    @captions.StundentsEDate <b>@Html.Raw(gl)</b>
+
+                
+                
+                </a>
+            </th>
+        }
+        else
+        {
+            <th>
+            <a 
+                asp-controller="Home" 
+                asp-action="Index" 
+                asp-route-scolumn="@sort_type.IntegerColumnEDate()" 
+                asp-route-sorder="@sort_type.IntegerAsc()">
+                @captions.StundentsEDate
+            </a>
+            </th>
+        }
+
+
+     
         <th></th>
 
         

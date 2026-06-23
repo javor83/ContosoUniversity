@@ -5,7 +5,7 @@ namespace ContosoUniversity.Models
 {
     public interface IStudentList
     {
-        IEnumerable<SItem> ReadStudents(string sOrder);
+        IEnumerable<SItem> ReadStudents(VDSort sOrder);
 
         Task Insert(SItem item);
 
@@ -17,7 +17,7 @@ namespace ContosoUniversity.Models
 
         GradeDetails Details(int id);
 
-        string NextOrderType(string sOrder, string order_asc, string order_desc);
+        
 
     }
 

@@ -107,34 +107,11 @@ namespace ContosoUniversity.Models
                  );
             await context.SaveChangesAsync();
         }
-        //**************************************************************************
-        string IStudentList.NextOrderType(string sOrder, string order_asc, string order_desc)
-        {
-            string result = string.Empty;
 
-            if (sOrder == string.Empty)
-            {
-                result = order_asc;
-            }
-            else
 
-                if (sOrder.Equals(order_asc, StringComparison.OrdinalIgnoreCase))
-                {
-                    result = order_desc;
-
-                }
-                else
-                    if (sOrder.Equals(order_desc, StringComparison.OrdinalIgnoreCase))
-                    {
-                        result = order_asc;
-
-                    }
-
-            return result;
-        }
 
         //**************************************************************************
-        IEnumerable<SItem> IStudentList.ReadStudents(string sOrder)
+        IEnumerable<SItem> IStudentList.ReadStudents(VDSort sOrder)
         {
             var query = context.Students.Select(x => new SItem()
             {
@@ -146,64 +123,57 @@ namespace ContosoUniversity.Models
             });
 
 
-            var result_fname = (this as IStudentList).NextOrderType(sOrder, enum_SortStudentOrder.fname_asc, enum_SortStudentOrder.fname_desc);
-            var result_lname = (this as IStudentList).NextOrderType(sOrder, enum_SortStudentOrder.lname_asc, enum_SortStudentOrder.lname_desc);
-            var result_edate = (this as IStudentList).NextOrderType(sOrder, enum_SortStudentOrder.edate_asc, enum_SortStudentOrder.edate_desc);
-            var result_id = (this as IStudentList).NextOrderType(sOrder, enum_SortStudentOrder.id_asc, enum_SortStudentOrder.id_desc);
-            if (result_fname!=string.Empty)
+            if (sOrder.Column == enum_ColumnStudent.ID)
             {
-                switch (result_fname)
+                switch (sOrder.Order)
                 {
-                    case enum_SortStudentOrder.fname_asc:
-                        query = query.OrderBy(x => x.FName);
+                    case enum_SortType.Asc:
+                        query = query.OrderBy(x => x.ID);
                         break;
-                    case enum_SortStudentOrder.fname_desc:
-                        query = query.OrderByDescending(x => x.FName);
+                    case enum_SortType.Desc:
+                        query = query.OrderByDescending(x => x.ID);
                         break;
                 }
             }
             else
-                if (result_lname!= string.Empty)
+                if (sOrder.Column == enum_ColumnStudent.FName)
                 {
-                    switch (result_lname)
+                    switch (sOrder.Order)
                     {
-                        case enum_SortStudentOrder.lname_asc:
-                            query = query.OrderBy(x => x.LName);
+                        case enum_SortType.Asc:
+                            query = query.OrderBy(x => x.FName);
                             break;
-                        case enum_SortStudentOrder.lname_desc:
-                            query = query.OrderByDescending(x => x.LName);
+                        case enum_SortType.Desc:
+                            query = query.OrderByDescending(x => x.FName);
                             break;
                     }
-
                 }
                 else
-                    if (result_edate != string.Empty)
+                    if (sOrder.Column == enum_ColumnStudent.LName)
                     {
-                        switch (result_edate)
+                        switch (sOrder.Order)
                         {
-                            case enum_SortStudentOrder.edate_asc:
-                                query = query.OrderBy(x => x.EnrollmentDate);
+                            case enum_SortType.Asc:
+                                query = query.OrderBy(x => x.LName);
                                 break;
-                            case enum_SortStudentOrder.edate_desc:
-                                query = query.OrderByDescending(x => x.EnrollmentDate);
+                            case enum_SortType.Desc:
+                                query = query.OrderByDescending(x => x.LName);
                                 break;
                         }
                     }
                     else
-                        if (result_id != string.Empty)
+                        if (sOrder.Column == enum_ColumnStudent.EDate)
                         {
-                            switch (result_id)
+                            switch (sOrder.Order)
                             {
-                                case enum_SortStudentOrder.id_asc:
-                                    query = query.OrderBy(x => x.ID);
+                                case enum_SortType.Asc:
+                                    query = query.OrderBy(x => x.EnrollmentDate);
                                     break;
-                                case enum_SortStudentOrder.id_desc:
-                                    query = query.OrderByDescending(x => x.ID);
+                                case enum_SortType.Desc:
+                                    query = query.OrderByDescending(x => x.EnrollmentDate);
                                     break;
                             }
                         }
-
-
 
             return query;
         }
