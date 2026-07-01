@@ -14,6 +14,8 @@ builder.Services.AddSqlServer<ContosoContext>
         builder.Configuration["ConnectionStrings:Default"]
     );
 builder.Services.AddTransient<IStudentList,StudentList>();
+builder.Services.AddTransient<IGroupStudent, GroupStudent>();
+
 
 var app = builder.Build();
 

@@ -21,8 +21,8 @@
     
     <div class="input-group mb-3">
         <input type="text" class="form-control" placeholder="@captions.Filter" name="fl" value="@sort_type.Filter">
-        <input type="text" name="scolumn" value="@sort_type.IntegerColumn()" />
-        <input type="text" name="sorder" value="@sort_type.IntegerOrder()" />
+        <input type="hidden" name="scolumn" value="@sort_type.IntegerColumn()" />
+        <input type="hidden" name="sorder" value="@sort_type.IntegerOrder()" />
         <button class="btn btn-success" type="submit">@captions.Filter</button>
     </div>
 

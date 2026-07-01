@@ -5,7 +5,7 @@ using System.Diagnostics;
 
 namespace ContosoUniversity.Controllers
 {
-    public class HomeController(IStudentList student) : Controller
+    public class HomeController(IStudentList student, IGroupStudent gr_st) : Controller
     {
 
 
@@ -82,6 +82,15 @@ namespace ContosoUniversity.Controllers
             else return View(details);
 
 
+        }
+        //****************************************************************************
+
+        public IActionResult G()
+        {
+            
+
+            var list = gr_st.ReadStudents();
+            return Json(list);
         }
 
         //****************************************************************************
