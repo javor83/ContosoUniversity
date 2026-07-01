@@ -85,14 +85,18 @@ namespace ContosoUniversity.Controllers
         }
 
         //****************************************************************************
-        public IActionResult Index(int scolumn = (int)enum_ColumnStudent.ID, int sorder = (int)enum_SortType.Asc)
+        public IActionResult Index(
+            int scolumn = (int)enum_ColumnStudent.ID,
+            int sorder = (int)enum_SortType.Asc,
+            string fl = "")
         {
 
 
             var k = new VDSort()
             {
                 Column = (enum_ColumnStudent)scolumn,
-                Order = (enum_SortType)sorder
+                Order = (enum_SortType)sorder,
+                Filter = fl
             };
 
             string gl = k.Glyph();

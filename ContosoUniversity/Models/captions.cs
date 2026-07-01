@@ -19,6 +19,9 @@
         public const string cancel = "Отказ";
         public const string delete = "Изтрий";
 
+        public const string Filter = "Търси...";
+
+
         public const string ReqField = "Полето {0} е задължително";
 
 

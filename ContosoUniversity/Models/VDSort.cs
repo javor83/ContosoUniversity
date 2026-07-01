@@ -5,23 +5,40 @@
         public enum_ColumnStudent Column { get; set; } = enum_ColumnStudent.ID;
 
         public enum_SortType Order { get; set; } = enum_SortType.None;
+
+        public string Filter { get; set; } = string.Empty;
         //*************************************************************************************************************
         public string Glyph()
         {
-            string result = "";
-
-            if (this.Order == enum_SortType.Asc)
-            {
-                result = "&#8595;"; 
-               
-            }
-            else
-                if (this.Order == enum_SortType.Desc)
+            string result =
+                this.Order switch
                 {
-                    result = "&#x2191;";
-                    
-                }
+                    enum_SortType.Asc => "&#8595;",
+                    enum_SortType.Desc => "&#x2191;",
+                    _ => ""
+                };
+
+
+          
             return result;
+        }
+        //*************************************************************************************************************
+        /// <summary>
+        /// преобразува колоната в число - get заявка при филтриране
+        /// </summary>
+        /// <returns></returns>
+        public int IntegerColumn()
+        {
+            return (int)this.Column;
+        }
+        //*************************************************************************************************************
+        /// <summary>
+        /// преобразува реда в число - get заявка при филтриране
+        /// </summary>
+        /// <returns></returns>
+        public int IntegerOrder()
+        {
+            return (int)this.Order;
         }
 
         //*************************************************************************************************************
@@ -37,24 +54,47 @@
             return this.Column == k;
         }
         //*************************************************************************************************************
+        /// <summary>
+        /// колоната в числов вид
+        /// </summary>
+        /// <returns></returns>
         public int IntegerColumnID()
         {
             return (int)enum_ColumnStudent.ID;
         }
+        //*************************************************************************************************************
+        /// <summary>
+        /// колоната в числов вид
+        /// </summary>
+        /// <returns></returns>
         public int IntegerColumnFName()
         {
             return (int)enum_ColumnStudent.FName;
         }
+        //*************************************************************************************************************
+        /// <summary>
+        /// колоната в числов вид
+        /// </summary>
+        /// <returns></returns>
         public int IntegerColumnLName()
         {
             return (int)enum_ColumnStudent.LName;
         }
+        //*************************************************************************************************************
+        /// <summary>
+        /// колоната в числов вид
+        /// </summary>
+        /// <returns></returns>
         public int IntegerColumnEDate()
         {
             return (int)enum_ColumnStudent.EDate;
         }
 
         //*************************************************************************************************************
+        /// <summary>
+        /// сортиране по подразбиране за следващата колона
+        /// </summary>
+        /// <returns></returns>
         public int IntegerAsc()
         {
             return (int)enum_SortType.Asc;
@@ -62,7 +102,12 @@
 
         //*************************************************************************************************************
 
+        /// <summary>
+        /// следващо възможно сортиране
+        /// </summary>
+        /// <returns></returns>
         public int NextOrderType()
+
         {
             enum_SortType result = enum_SortType.None;
 

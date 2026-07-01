@@ -1,5 +1,6 @@
 ﻿using ContosoUniversity.DatabaseFolder;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection.Metadata.Ecma335;
 
 namespace ContosoUniversity.Models
 {
@@ -113,14 +114,21 @@ namespace ContosoUniversity.Models
         //**************************************************************************
         IEnumerable<SItem> IStudentList.ReadStudents(VDSort sOrder)
         {
-            var query = context.Students.Select(x => new SItem()
-            {
-                ID = x.Id,
-                FName = x.Fname,
-                LName = x.Lastname,
-                EnrollmentDate = x.Enrollmentdate
+            IQueryable<Student> query = context.Students;
 
-            });
+           
+
+            if (sOrder.Filter != string.Empty)
+            {
+                query = query.Where
+                    (
+                        x => 
+                        x.Fname.Contains(sOrder.Filter)
+                        ||
+                        x.Lastname.Contains(sOrder.Filter)
+                    );
+            }
+
 
 
             if (sOrder.Column == enum_ColumnStudent.ID)
@@ -128,10 +136,10 @@ namespace ContosoUniversity.Models
                 switch (sOrder.Order)
                 {
                     case enum_SortType.Asc:
-                        query = query.OrderBy(x => x.ID);
+                        query = query.OrderBy(x => x.Id);
                         break;
                     case enum_SortType.Desc:
-                        query = query.OrderByDescending(x => x.ID);
+                        query = query.OrderByDescending(x => x.Id);
                         break;
                 }
             }
@@ -141,10 +149,10 @@ namespace ContosoUniversity.Models
                     switch (sOrder.Order)
                     {
                         case enum_SortType.Asc:
-                            query = query.OrderBy(x => x.FName);
+                            query = query.OrderBy(x => x.Fname);
                             break;
                         case enum_SortType.Desc:
-                            query = query.OrderByDescending(x => x.FName);
+                            query = query.OrderByDescending(x => x.Fname);
                             break;
                     }
                 }
@@ -154,10 +162,10 @@ namespace ContosoUniversity.Models
                         switch (sOrder.Order)
                         {
                             case enum_SortType.Asc:
-                                query = query.OrderBy(x => x.LName);
+                                query = query.OrderBy(x => x.Lastname);
                                 break;
                             case enum_SortType.Desc:
-                                query = query.OrderByDescending(x => x.LName);
+                                query = query.OrderByDescending(x => x.Lastname);
                                 break;
                         }
                     }
@@ -167,15 +175,24 @@ namespace ContosoUniversity.Models
                             switch (sOrder.Order)
                             {
                                 case enum_SortType.Asc:
-                                    query = query.OrderBy(x => x.EnrollmentDate);
+                                    query = query.OrderBy(x => x.Enrollmentdate);
                                     break;
                                 case enum_SortType.Desc:
-                                    query = query.OrderByDescending(x => x.EnrollmentDate);
+                                    query = query.OrderByDescending(x => x.Enrollmentdate);
                                     break;
                             }
                         }
 
-            return query;
+            IEnumerable<SItem> result = query.Select(x => new SItem()
+            {
+                ID = x.Id,
+                FName = x.Fname,
+                LName = x.Lastname,
+                EnrollmentDate = x.Enrollmentdate
+
+            });
+
+            return result;
         }
 
         //**************************************************************************
